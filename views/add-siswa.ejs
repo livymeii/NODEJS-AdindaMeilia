@@ -1,0 +1,204 @@
+<style>
+    .form-container {
+        max-width: 700px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .form-header h2 {
+        color: #2c3e50;
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .alert {
+        border-radius: 6px;
+        border-left: 4px solid #dc3545;
+    }
+
+    .alert ul {
+        margin: 0;
+        padding-left: 1.25rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        padding: 0.625rem 0.75rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+        outline: 0;
+    }
+
+    .mb-3 {
+        margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 0.625rem 2rem;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: background-color 0.2s ease-in-out;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .section-divider {
+        margin: 1.75rem 0;
+        border-top: 1px dashed #dee2e6;
+    }
+
+    .form-section-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    @media (max-width: 576px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-container {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<div class="container mt-3">
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Form Tambah Data Siswa</h2>
+        </div>
+
+        <% if (typeof errors != 'undefined') { %>
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
+        <form method="post" action="/siswa">
+            
+            <div class="form-section-title">Data Pribadi</div>
+
+            <div class="mb-3">
+                <label for="nama" class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama lengkap" required />
+            </div>
+
+            <div class="form-row">
+                <div class="mb-3">
+                    <label class="form-label">Jenis Kelamin</label>
+                    <select class="form-select" name="jk" required>
+                        <option value="L">L</option>
+                        <option value="P">P</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ttl" class="form-label">Tempat Lahir</label>
+                    <input type="text" class="form-control" id="ttl" name="ttl" placeholder="Kota kelahiran" required />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="mb-3">
+                    <label for="nik" class="form-label">NIK</label>
+                    <input type="text" class="form-control" id="nik" name="nik" placeholder="16 digit NIK" maxlength="16" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="nokk" class="form-label">No. Kartu Keluarga</label>
+                    <input type="text" class="form-control" id="nokk" name="nokk" placeholder="16 digit No. KK" maxlength="16" required />
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="form-section-title">Data Akademik</div>
+
+            <div class="mb-3">
+                <label for="nisn" class="form-label">NISN</label>
+                <input type="text" class="form-control" id="nisn" name="nisn" placeholder="Nomor Induk Siswa Nasional" required />
+            </div>
+
+            <div class="form-row">
+                <div class="mb-3">
+                    <label class="form-label">Tingkat Kelas</label>
+                    <select class="form-select" name="tingkat" required>
+                        <option value="X">Kelas X</option>
+                        <option value="XI">Kelas XI</option>
+                        <option value="XII">Kelas XII</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Rombongan Belajar</label>
+                    <select class="form-select" name="rombel" required>
+                        <option value="PPLG1">PPLG 1</option>
+                        <option value="PPLG2">PPLG 2</option>
+                        <option value="RPL1">RPL 1</option>
+                        <option value="RPL2">RPL 2</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="mb-3">
+                    <label class="form-label">Tanggal Masuk</label> 
+                    <input class="form-control" type="date" name="tgl_masuk" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status Pendaftaran</label>
+                    <select class="form-select" name="terdaftar" required>
+                        <option value="Siswa Baru">Siswa Baru</option>
+                        <option value="Pindahan">Pindahan</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <button type="submit" class="btn btn-primary">Tambah Data Siswa</button>
+        </form>
+    </div>
+</div>

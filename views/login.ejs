@@ -1,0 +1,166 @@
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .login-container {
+        width: 100%;
+        padding: 2rem 1rem;
+    }
+
+    .login-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        padding: 2.5rem;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .login-header h3 {
+        color: #2c3e50;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .login-header p {
+        color: #6c757d;
+        font-size: 0.95rem;
+        margin: 0;
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
+        padding: 0.875rem 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+        outline: 0;
+    }
+
+    .mb-3 {
+        margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    .login-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .login-footer p {
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    @media (max-width: 576px) {
+        .login-card {
+            padding: 2rem 1.5rem;
+        }
+
+        .login-header h3 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h3>Login</h3>
+        </div>
+
+        <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if (msg && msg.length > 0) { %>
+            <div class="alert alert-success">
+                <%= msg %>
+            </div>
+        <% } %>
+
+        <form action="/login" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autofocus>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+
+        </div>
+    </div>
+</div>

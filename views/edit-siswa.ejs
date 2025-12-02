@@ -1,0 +1,176 @@
+<style>
+    .form-container {
+        max-width: 700px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .form-header h2 {
+        color: #2c3e50;
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .alert {
+        border-radius: 6px;
+        border-left: 4px solid #dc3545;
+    }
+
+    .alert ul {
+        margin: 0;
+        padding-left: 1.25rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        padding: 0.625rem 0.75rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+    }
+
+    .form-control:disabled, .form-select:disabled {
+        background-color: #f8f9fa;
+        cursor: not-allowed;
+    }
+
+    .mb-3 {
+        margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 0.625rem 2rem;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .section-divider {
+        margin: 1.75rem 0;
+        border-top: 1px dashed #dee2e6;
+    }
+
+    .form-section-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container mt-3">
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Form Ubah Data Siswa</h2>
+        </div>
+
+        <% if (typeof errors != 'undefined') { %>
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
+        <form method="post" action="/siswa/<%= siswa.nisn %>?_method=PUT">
+
+            <input type="hidden" name="nama" value="<%= siswa.nama %>">
+            <input type="hidden" name="jk" value="<%= siswa.jk %>">
+            <input type="hidden" name="nisn" value="<%= siswa.nisn %>">
+            <input type="hidden" name="nik" value="<%= siswa.nik %>">
+            <input type="hidden" name="nokk" value="<%= siswa.nokk %>">
+            <input type="hidden" name="ttl" value="<%= siswa.ttl %>">
+
+            <div class="form-section-title">Data Pribadi (Tidak dapat diubah)</div>
+
+            <div class="mb-3">
+                <label for="nama" class="form-label">Nama</label>
+                <input type="text" class="form-control" value="<%= siswa.nama %>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Jenis Kelamin</label>
+                <select class="form-select" disabled>
+                    <option value="L" <%= siswa.jk === "L" ? "selected" : "" %>>L</option>
+                    <option value="P" <%= siswa.jk === "P" ? "selected" : "" %>>P</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="nisn" class="form-label">NISN</label>
+                <input type="text" class="form-control" value="<%= siswa.nisn %>" disabled>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="form-section-title">Data Akademik (Dapat diubah)</div>
+
+            <div class="mb-3">
+                <label class="form-label">Tingkat Kelas</label>
+                <select class="form-select" name="tingkat" required>
+                    <option value="X" <%= siswa.tingkat === "X" ? "selected" : "" %>>Kelas X</option>
+                    <option value="XI" <%= siswa.tingkat === "XI" ? "selected" : "" %>>Kelas XI</option>
+                    <option value="XII" <%= siswa.tingkat === "XII" ? "selected" : "" %>>Kelas XII</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Rombongan Belajar</label>
+                <select class="form-select" name="rombel" required>
+                    <option value="PPLG1" <%= siswa.rombel === "PPLG1" ? "selected" : "" %>>PPLG 1</option>
+                    <option value="PPLG2" <%= siswa.rombel === "PPLG2" ? "selected" : "" %>>PPLG 2</option>
+                    <option value="RPL1" <%= siswa.rombel === "RPL1" ? "selected" : "" %>>RPL 1</option>
+                    <option value="RPL2" <%= siswa.rombel === "RPL2" ? "selected" : "" %>>RPL 2</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tanggal Masuk</label>
+                <input class="form-control" type="date" name="tgl_masuk" 
+                       value="<%= new Date(siswa.tgl_masuk).toISOString().split('T')[0] %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Status Pendaftaran</label>
+                <select class="form-select" name="terdaftar" required>
+                    <option value="Siswa Baru" <%= siswa.terdaftar === "Siswa Baru" ? "selected" : "" %>>Siswa Baru</option>
+                    <option value="Pindahan" <%= siswa.terdaftar === "Pindahan" ? "selected" : "" %>>Pindahan</option>
+                </select>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <button type="submit" class="btn btn-primary">Ubah Data</button>
+        </form>
+    </div>
+</div>
