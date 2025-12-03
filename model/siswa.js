@@ -1,5 +1,5 @@
 const mongoose = require ('mongoose');
-const Siswa = mongoose.model('Siswa', {
+const Siswa = mongoose.model('siswa', {
         nama: {
         type: String,
         required: true,
