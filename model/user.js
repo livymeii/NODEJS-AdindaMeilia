@@ -5,6 +5,8 @@ const User = mongoose.model('user', {
   password: String,
 });
 
+
+//biar masuk ke mongodbnya ga berulang
 async function createDefaultAdmin() {
     const admin = await User.findOne({ username: 'admin' });
 
