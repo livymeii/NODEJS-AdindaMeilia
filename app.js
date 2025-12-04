@@ -151,8 +151,8 @@ app.post(
     .notEmpty().withMessage('Tanggal masuk wajib diisi')
     .isDate().withMessage('Format tanggal tidak valid')
     .custom((value) => {
-    if (new Date(value) > new Date('2025-12-02')) {
-      throw new Error('Tanggal masuk tidak boleh melebihi 02 Desember 2025');
+    if (new Date(value) > new Date('2025-12-04')) {
+      throw new Error('Tanggal masuk tidak boleh melebihi 04 Desember 2025');
     }
     return true;
   }),
@@ -202,8 +202,8 @@ app.put(
     .notEmpty().withMessage('Tanggal masuk wajib diisi')
     .isDate().withMessage('Format tanggal tidak valid')
     .custom((value) => {
-      if (new Date(value) > new Date('2025-12-02')) {
-        throw new Error('Tanggal masuk tidak boleh melebihi 02 Desember 2025');
+      if (new Date(value) > new Date('2025-12-04')) {
+        throw new Error('Tanggal masuk tidak boleh melebihi 04 Desember 2025');
       }
       return true;
     }),
